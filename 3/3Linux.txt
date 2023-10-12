@@ -1,0 +1,23 @@
+cnt=0; while [ $cnt -le 10000 ] ; do echo "Hello Linux [$cnt]"; let cnt++; done > test.txt
+
+adduser
+passwd
+userdel -r
+
+pwd    whoami    touch    mkdir -p    
+
+man
+
+rmdir    rm -rf -i    mv
+
+cat -n    tac    more    less    
+
+head    tail    
+
+date +%Y/%m/%d-%H:%M:%S
+date +%s   时间戳
+date -d@时间戳
+
+cal
+
+一切皆文件
