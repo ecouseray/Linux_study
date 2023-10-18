@@ -6,18 +6,25 @@ userdel -r
 
 pwd    whoami    touch    mkdir -p    
 
-man
+man    (sudo yum install -y man-pages)
 
-rmdir    rm -rf -i    mv
+rmdir    rm -rf -i    
 
-cat -n    tac    more    less    
+mv
 
-head    tail    
+cat -n    
+tac    逆序查看
+more   查看  q 退出  Enter 换行
+less   查看  q 退出  ↑  ↓  换行
+
+head -x(一个数字)   tail    
+
+|    管道的使用
 
 date +%Y/%m/%d-%H:%M:%S
 date +%s   时间戳
 date -d@时间戳
 
-cal
+cal (日历)
 
 一切皆文件

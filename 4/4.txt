@@ -1,0 +1,250 @@
+find -name
+语法：find 路径 -选项
+
+[root@sec test]# find ~ -name test.txt 
+/root/test/mv_file/test.txt
+/root/test/test.txt
+[root@sec test]# 
+
+当我们在find搜索时，在内存当中搜索，（在搜索的时候有可能会访问磁盘，可能会导致效率降低）
+
+
+Linux下命令的分类：
+	可执行程序（ls、chmod...）、脚本（bash命令、python命令）、内置命令(cd、echo... 由shell解释器执行)、命令的别名
+
+which
+[root@sec test]# which pwd        # 只用来搜索 命令 
+/usr/bin/pwd                      # 执行自己的程序，需要带上路径，但是执行系统命令不要加路径
+[root@sec test]# which top        # 环境变量出细说
+/usr/bin/top
+[root@sec test]# which whoami
+/usr/bin/whoami
+[root@sec test]# 
+
+
+
+
+alias 对一个命令进行重命名
+
+[root@sec test]# which ls
+alias ls='ls --color=auto'
+	/usr/bin/ls
+
+
+[root@sec test]# whereis ls
+ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz /usr/share/man/man1p/ls.1p.gz
+
+which < whereis < find
+
+
+[root@sec test]# whereis test.txt    # 在特定的路径下，查找指定的文件名对应的指令或者文档
+test: /usr/bin/test /usr/share/man/man1/test.1.gz /usr/share/man/man1p/test.1p.gz
+
+
+
+
+grep
+文本内容的行过滤工具
+
+默认情况下会匹配文本中的关键字，匹配上的进行 行显示
+
+[root@sec test]# grep '9999' test.txt
+Hello Linux [9999]
+
+grep -n '9999' test.txt
+-n 显示原本文档中的行号
+
+grep -i 'end' test.txt
+-i 忽略大小写 匹配
+
+grep -v '99' test.txt
+-v 显示匹配不到99的（反向匹配）
+
+
+grep 可以和 其他命令 结合 管道 进行文本过滤
+
+wc 
+命令可以统计行数
+[root@sec test]# wc -l test.txt
+10002 test.txt
+
+
+
+
+sort 指令 可以对文本内容通过ASCII码进行 升序排序
+
+[root@sec test]# cat file.txt 
+222222
+1111111
+4444444
+33333
+55555
+[root@sec test]# sort file.txt 
+1111111
+222222
+33333
+4444444
+55555
+
+
+
+
+uniq 命令 
+相邻文本行，相等的，全部进行去重，保留一行
+
+uniq file.txt
+
+sort file.txt | uniq 
+
+
+
+
+zip/unzip
+打包压缩命令
+
+sudo yum install -y zip unzip
+
+zip默认对一个目录打包压缩的时候，默认只会对目录文件打包压缩
+
+zip -r 压缩包名称(自定义) 压缩文件
+unzip 压缩包名称  -- 在当前目录下进行解包解压的功能
+
+
+unzip my.zip -d Test  # -d 指定解包解压的路径
+
+为什么要打包和压缩呢？  --  互联网 -> 很多大小文件的 -> 打包压缩 - 便于传输和保存(将多个文件变为一个文件，不牵扯部分丢失的问题 、 高效传输)
+
+
+
+
+tar 命令
+
+tar -czf 
+-c -- create  创建
+-z -- z对应的压缩算法压缩
+-f -- 新的压缩包的文件名
+
+[root@sec ~]# tar -czf my.tgz mv_file    # 打包并压缩
+[root@sec ~]# tar -xzf my.tgz            # 解包并解压
+
+
+[root@sec ~]# tar -czvf my.tgz mv_file   # -v 打包的时候显示打包压缩(解包解压)了哪些东西
+
+- 参数，其余无所谓，-f 放在最后就行
+
+-t 参数 不解压查看压缩包中的内容
+
+-C 参数 指定压缩路径
+
+
+
+
+
+bc -- Linux 下的计算器 -- 支持管道
+echo "1+2+3+4+5" | bc
+
+
+
+
+uname -a
+[root@sec test]# uname -a
+Linux sec 3.10.0-1160.92.1.el7.x86_64 #1 SMP Tue Jun 20 11:48:01 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+[root@sec test]# uname -r
+3.10.0-1160.92.1.el7.x86_64
+
+
+体系结构 -- CPU架构
+
+
+
+一些热键：
+Tab 命令的自动补全 -- 最常用
+
+ctrl + c -- 终止前台的异常程序
+
+↑    ↓    查找最近命令
+
+ctrl + r -- 搜索历史命令(适合用于找一些长命令) ← → 就可选中
+
+ctrl + d -- 退出当前用户，退出一层 
+
+\ 换行符号
+ls \
+-a \
+-l 
+
+C语言时候，宏的地方提到过
+
+
+
+
+关机：
+	shutdown
+
+查看cpu  --  lscpu
+
+查看磁盘结构  --  df -h
+
+who -- 谁当前登录了Linux操作系统(可多用户同时登录)
+
+whoami -- 我现在是那个用户
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+shell：
+
+命令行解释器：
+	最直观的表现就是：你看到命令行提示符，已经可以输入指令并且可以执行 
+
+	外壳程序 -- shell 
+
+	shell的第一次理解 -- 感性的认识
+
+	人    不善于和操作系统    打交道
+
+	张三      ----            用户 
+    王婆      ----            shell
+    如花      ----            操作系统
+
+shell 存在的意义    变相的保护操作系统
+
+	实习生 -- 执行命令，通过派生子进程的方式执行用户的指令，而 shell本身并不执行对应的命令（一般而言）
+
+	Linux == Linux 内核 + shell 外壳
+
+	将用户的指令翻译给内核
+
+	Linux shell命令行外壳 和 win图新界面  兄弟关系
+
+	shell 是 一个 外壳统称
+
+	CentOS 下 我们把他的 shell 具体叫做bash
+
+	媒婆 -- 王婆
+
+
+
+
+权限：
+	1.基本的具体用户认识
+		root用户 超级管理员
+			root 不受 权限的限制 -- 密码保存好(不仅仅是记住、还要长、复杂)
+		普通用户 受权限约束
+
+	root的密码 和 用户的的密码不要一样
+
+	su  vs  su - 
+	su 路径不变(变root)
+	su - root登录
+
+
+	普通 -> root  -> su / su -
+
+	root -> 普通  -> su xxx
+
+	
+
+	2.权限的周边概念（什么是，为什么，怎么办（设置、取消...）, 如果没有权限，是什么表现）
